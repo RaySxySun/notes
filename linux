@@ -1,0 +1,2 @@
+# check Current DNS
+$ nmcli dev show | grep 'IP4.DNS'
