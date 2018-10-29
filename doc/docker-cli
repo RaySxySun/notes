@@ -1,0 +1,9 @@
+#Check DNS
+docker run --dns 10.0.0.2 busybox nslookup google.com
+
+# check br network interface
+# By default, the Docker server creates and configures the host system’s docker0 a network interface called docker0
+$ sudo brctl show 	# check br network/interfaces mapping
+$ docker network ls	# check br network with NETWORK ID
+
+
