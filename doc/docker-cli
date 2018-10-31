@@ -6,4 +6,10 @@ docker run --dns 10.0.0.2 busybox nslookup google.com
 $ sudo brctl show 	# check br network/interfaces mapping
 $ docker network ls	# check br network with NETWORK ID
 
-
+# specify a network to a compose build
+version: '3.4'
+services:
+  my_image:
+    build:
+      context: .
+      network: host
