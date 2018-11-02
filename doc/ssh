@@ -29,7 +29,7 @@ After=network.target
 Restart=always
 RestartSec=20
 User=root
-ExecStart=/usr/bin/ssh -o ServerAliveInterval=60 -t jlab -L 9200:localhost:49200 ssh -N -o ServerAliveInterval=60 trip-traffic-es-1 -L 49200:localhost:9200
+ExecStart=/usr/bin/ssh -o ServerAliveInterval=60 -t jlab -L 0.0.0.0:9200:localhost:49200 ssh -N -o ServerAliveInterval=60 trip-traffic-es-1 -L 49200:localhost:9200
 
 [Install]
 WantedBy=multi-user.target

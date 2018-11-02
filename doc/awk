@@ -1,3 +1,9 @@
+#########################################
+#	find & kill process by name	#
+#########################################
+$ kill $(ps aux | grep '[p]ython csp_build.py' | awk '{print $2}')
+
+
 example:
 
 ps -ef | grep -F 'sbin/httpd' |grep -v "root"| awk '{print $2}' | xargs kill -9
