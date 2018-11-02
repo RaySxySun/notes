@@ -7,9 +7,40 @@ $ sudo brctl show 	# check br network/interfaces mapping
 $ docker network ls	# check br network with NETWORK ID
 
 # specify a network to a compose build
+
+```
 version: '3.4'
 services:
   my_image:
     build:
       context: .
       network: host
+```
+
+# specify default network for both building and running
+
+```
+version: '3.5'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    build:
+      context: .
+      network: default
+    ports:
+      - "9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 100.98.137.212
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  default:
+    external:
+      name: docker01
+```

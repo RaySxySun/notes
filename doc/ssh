@@ -1,4 +1,45 @@
 #####################################
+# 	     jump & tunnel	    #
+#####################################
+```
+# edit ~/.ssh/config
+Host jlab
+  HOSTNAME <bastion>
+  USER ray
+  PORT 22
+  IdentityFile ~/.ssh/id_rsa
+  ProxyCommand corkscrew <www.proxy.com> <port> %h %p
+Host target-workstation
+  HOSTNAME <target-workstation>
+  USER ray
+  PORT 22
+  IdentityFile ~/.ssh/id_rsa
+  ProxyCommand ssh jlab -W %h:%p
+```
+```
+# sudo su
+# vim /etc/systemd/system/dev_es.service
+# system enable dev_es
+# system status dev_es
+[Unit]
+Description=SSH Tunnel
+After=network.target
+
+[Service]
+Restart=always
+RestartSec=20
+User=root
+ExecStart=/usr/bin/ssh -o ServerAliveInterval=60 -t jlab -L 9200:localhost:49200 ssh -N -o ServerAliveInterval=60 trip-traffic-es-1 -L 49200:localhost:9200
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+
+
+
+#####################################
 # 	     Configuration	    #
 #####################################
 /etc/ssh/sshd_config	   # 1.server
