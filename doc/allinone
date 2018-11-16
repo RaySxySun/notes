@@ -2,39 +2,79 @@
 > http://wurstmeister.github.io/kafka-docker/
 > https://github.com/wurstmeister/kafka-docker
 
-# run tomcat docker
+#================================= run tomcat docker
 $ docker run -it --rm -p 8888:8080 hub.ecf-poc.com:9999/micro-service/fms-bff
 
-# busybox test
+#================================= busybox test
 $ docker run -it  hub.ecf-poc.com:9999/library/busybox:latest ping trip-traffic-es-1
 
 alias busybox="docker run -it --rm  busybox"
 
-# connectivity test
+#================================= connectivity test
 $ nc -vz -w 10 192.168.2.72 9200
 
-# docker-compose up doesn't pull down latest image if the image exists locally
+#================================= docker-compose up doesn't pull down latest image if the image exists locally
 $ docker-compose pull && docker-compose up
 
-# build docker images with specified network
+#================================= build docker images with specified network
 $ docker run -it --network docker01 hub.ecf-poc.com:9999/library/fms-base:latest bash
 
-# merge files and filter out duplicate info (in Dockerfile)
+#================================= merge files and filter out duplicate info (in Dockerfile)
 COPY ./hosts /tmp/hosts
 COPY ./fms-bff-latest/conf /opt/ecf/web_component/fms-bff-latest/conf
 RUN cat /tmp/hosts /etc/hosts | sort -u > /etc/hosts
 
-# input & redirect
+#================================= input & redirect
 $ cat <<EOF > /etc/sysctl.d/k8s.conf
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
-# k8s
+#================================= k8s
 
 kubectl create -f target/services/kube-dns.yaml
 kubectl -n kube-system get svc
 
-# clean all invalid images
-docker rmi -f $(docker images | grep non | awk '{print $3}')
+#================================= AWK
+  # clean all invalid images
+  docker rmi -f $(docker images | grep non | awk '{print $3}')
+  # print 2nd & last column with space padding
+  docker ps | grep fms | awk '{printf("%-40s %5s\n",$NF,$2)}'
+  ```
+  fms-report-engine                        hub.ecf-poc.com:9999/micro-service/fms-report-engine:latest
+  fms-biz-rule-mgmt                        hub.ecf-poc.com:9999/micro-service/fms-biz-rule-mgmt:latest
+  fms-org-mgmt                             hub.ecf-poc.com:9999/micro-service/fms-org-mgmt:latest
+  fms-event-notification                   hub.ecf-poc.com:9999/micro-service/fms-event-notification:latest
+  ```
+
+#================================= Print curl pretty format
+$ curl -XGET http://awesome.com/api/v1/data | python -m json.tool
+
+#================================= kube-proxy
+# ISSUE: error looking for path of conntrack: exec: "conntrack": executable file not found in $PATH
+yum install conntrack-tools
+
+#================================= check docker container
+sudo docker inspect --format '{{ .State.Pid }}' reactor-worker
+
+
+#================================= three-way&four-way handshake > establish connection
+Client ------SYN-----> Server
+Client <---ACK/SYN---- Server ----①
+Client ------ACK-----> Server
+
+> terminate connection
+Client ------FIN-----> Server
+Client <-----ACK------ Server ----②
+Client <-----FIN------ Server ----③ (at this moment the client has been in FIN_WAIT_2 state)
+Client ------ACK-----> Server
+
+#================================= redis
+# check all keys
+> KEYS *
+
+#================================= zookeeper
+$ {ZK_ROOT}/bin/zkCli.sh
+$ {ZK_ROOT}/bin/zkCli.sh -server localhost:2181
+$ {ZK_ROOT}/bin/zkCli.sh -server "localhost:2181,localhost:2182,localhost:2183"

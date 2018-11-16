@@ -229,6 +229,8 @@ shell >>
 ---------------------------------------------------------------------------------
 |				                Bash settings                                   |
 ---------------------------------------------------------------------------------
+$ help set 	#check all setting options
+set -e 		# exit script imediately when it fails
 shopt -s nullglob
 set -o pipefail
 echo -e "[DEBUG] Bash settings: [$-] [${BASHOPTS}]\n"
@@ -345,4 +347,38 @@ let MINS=$TDIFF/60%60
 let HRS=$TDIFF/60/60%24
 let DAYS=$TDIFF/60/60/24
 
+---------------------------------------------------------------------------------
+|				         Special Parameters                     |
+---------------------------------------------------------------------------------
 
+```
+  #!/bin/bash
+  echo "shell script name is:"$0
+  n=1
+  echo "args array is "$@
+  for temstr in "$@"
+  do
+          echo "the $n arg is:" $temstr
+          let n+=1
+  done
+
+  n=1
+  echo "the arg list \$* is:"$*
+  for temstr in "$*"
+  do
+          echo "the $n arg is:" $temstr
+          let n+=1
+  done
+  
+  //----------------OUTPUT--------------------
+  shell script name is:./myscript.sh
+  args array is 1 2 3 4 5 6
+  the 1 arg is: 1
+  the 2 arg is: 2
+  the 3 arg is: 3
+  the 4 arg is: 4
+  the 5 arg is: 5
+  the 6 arg is: 6
+  the arg list $* is:1 2 3 4 5 6
+  the 1 arg is: 1 2 3 4 5 6  
+```
