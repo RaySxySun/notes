@@ -74,7 +74,50 @@ Client ------ACK-----> Server
 # check all keys
 > KEYS *
 
-#================================= zookeeper
-$ {ZK_ROOT}/bin/zkCli.sh
-$ {ZK_ROOT}/bin/zkCli.sh -server localhost:2181
-$ {ZK_ROOT}/bin/zkCli.sh -server "localhost:2181,localhost:2182,localhost:2183"
+
+#================================= REACTOR
+
+http://{{service_host}}:{{service_port}}/service/api/resourceBundle-management/v1/resourceBundle/deploy
+ResourceBundleServiceRestful.deploy -> ResourceBundleServiceImpl.deploy (conent -> ApplicationArchive -> ResourceBundle -> save/update)
+# READ file from postgres bytea field
+$ psql -h 192.168.2.50 -p 5432 -U reactor -d reactor        #access postgres db
+$ \d+ resourcebundle                                        #check table description
+
+                              Table "public.resourcebundle"
+   Column  |          Type          | Modifiers | Storage  | Stats target | Description 
+  ---------+------------------------+-----------+----------+--------------+-------------
+   id      | bigint                 | not null  | plain    |              | 
+   content | oid                    | not null  | plain    |              | 
+   name    | character varying(255) | not null  | extended |              | 
+   version | character varying(255) | not null  | extended |              | 
+
+$ select  * from resourcebundle;
+
+  Id  Content Name                              Version
+  ----------------------------------------------------------
+  10  24578   reactor:resource-bundle:default   1
+  40  16599   rms-resources-v2                  1.0-SNAPSHOT
+  41  16600   ResourceBundle-Example            1.0-SNAPSHOT
+
+  # -- read bytea 
+  # -- $ \copy (SELECT encode(content, 'hex') FROM resourcebundle where name='ResourceBundle-Example') TO '/tmp/content.hex'
+  # -- $ xxd -p -r content.hex > content.jpg
+  # -- instead of reading file from bytea, the blob file should read directly with lo_get()
+
+$ \copy (SELECT lo_get(content) FROM resourcebundle where name='reactor-app-ResourceBundle-1') TO '/tmp/content.hex';
+$ xxd -p -r content.hex > content.jar
+
+  # -- read bytea 
+  # -- $ \copy (SELECT encode(content, 'hex') FROM resourcebundle where name='ResourceBundle-Example') TO '/tmp/content.hex'
+  # -- $ xxd -p -r content.hex > content.jpg
+  # -- instead of reading file from bytea, the blob file should read directly with lo_get()
+
+  # -- 
+  >> I know this is none of the user's business, but I'm wondering how
+  >> blob's implemented as oid are stored in the postgresql data storage.
+  >> Are each of them kept in a separate file, or are they chunked into
+  >> pieces and scattered ?
+  >
+  > They're in chunks in the pg_largeobject catalog.
+  > https://www.postgresql.org/docs/devel/catalog-pg-largeobject.html
+
