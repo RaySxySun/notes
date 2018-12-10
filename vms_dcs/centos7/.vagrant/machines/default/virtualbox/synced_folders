@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","guestpath":"/vagrant","hostpath":"C:/Users/EIXUSAN/codedb/github/notes/vms_dcs/centos7","disabled":false,"__vagrantfile":true,"owner":"vagrant","group":"vagrant"}}}

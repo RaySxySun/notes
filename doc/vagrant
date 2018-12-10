@@ -1,1 +1,24 @@
- J
+#####################################################################
+#			PLUGIN
+#####################################################################
+
+# plugin for disksize
+$> vagrant plugin install vagrant-disksize
+
+# shared folder requires 
+$> vagrant plugin install vagrant-vbguest
+$> vim Vagrantfile
+
+  ```
+   config.vm.synced_folder "C:\\Users\\EIXUSAN\\codedb", "/codedb",
+       owner: "vagrant", group: "vagrant"
+     
+   config.vm.provision "shell", inline: <<-SHELL
+      yum update -y
+   SHELL
+  ```
+
+#####################################################################
+#			Configuration
+#####################################################################
+$> vagrant.exe ssh-config #check private config
