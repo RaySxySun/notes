@@ -1,0 +1,46 @@
+#####################################################
+#		installation
+#####################################################
+
+#On Ubuntu:
+$> apt install zsh
+$> which zsh
+
+#On CentOS:
+$> yum install zsh
+$> chsh -s /bin/zsh vagrant
+
+
+$> echo $SHELL
+
+# On Ubuntu:
+$> apt install wget git
+
+# On CentOS:
+$> yum install wget git
+
+$> get https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+$> cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+$> source ~/.zshrc
+
+#####################################################
+#		themes & plugin
+#####################################################
+$> cd ~/.oh-my-zsh/themes/
+$> ls -a
+$> vim ~/.zshrc	# ZSH_THEME='risto'
+$> source ~/.zshrc
+$> cd ~/.oh-my-zsh/plugins/
+$> ls -a
+$> vim ~/.zshrc # plugins=(git extract web-search yum git-extras docker vagrant)
+$> extract zip-extract.zip
+$> extract extract-test.tar.gz
+$> yp zsh # yum info
+$> vagrant box
+
+#####################################################
+#		refrences
+#####################################################
+https://github.com/robbyrussell/oh-my-zsh/wiki
+https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins
