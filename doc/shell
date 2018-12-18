@@ -51,6 +51,10 @@
 [ EXPR1 -a EXPR2 ]  True if both EXPR1 and EXPR2 are true.
 [ EXPR1 -o EXPR2 ]  True if either EXPR1 or EXPR2 is true.
 
+==> regular expression match
+[[ =~ ]]
+  [[ $data =~ ^[0-9]{8}$ ]] && echo "yes"
+
 ---------------------------------------------------------------------------------
 |				               String                        					|
 ---------------------------------------------------------------------------------
@@ -382,3 +386,26 @@ let DAYS=$TDIFF/60/60/24
   the arg list $* is:1 2 3 4 5 6
   the 1 arg is: 1 2 3 4 5 6  
 ```
+
+---------------------------------------------------------------------------------
+|				 Curly Braces                                   |
+---------------------------------------------------------------------------------
+# 1. ${!var_name}var of var
+```
+  validate_env() {
+    ENV_FIELD_NAMES=(${1//,/ })
+    for varName in ${ENV_FIELD_NAMES[@]};
+    do
+      [[ -z ${!varName} ]] && print_error "The ENV \"${varName}\" is empty. please sepcify a app name in ./config/env.conf" && exit 255
+    done
+  }  
+
+  TARGET1=/opt/apps/target1.tar.gz
+  TARGET2=/opt/apps/target2.tar.gz
+  REQUIRED_ENV_NAMES='TARGET1, TARGET2'
+  
+  validate_env $REQUIRED_ENV_NAMES
+
+```
+
+

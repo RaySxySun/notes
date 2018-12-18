@@ -1,0 +1,15 @@
+#--build-arg BASE_IMAGE_REPO=${BASE_IMAGE_REPO} --build-arg PROJ_HOME=${PROJ_HOME} 
+#--build-arg APP_NAME=${APP_NAME} --build-arg IMAGE_VERSION=${IMAGE_VERSION}
+ARG PROJ_IMAGE_REPO
+ARG APP_NAME
+ARG IMAGE_VERSION
+FROM ${PROJ_IMAGE_REPO}/${APP_NAME}:${IMAGE_VERSION}
+MAINTAINER ray ohraymaster@163.com
+
+ARG PROJ_HOME
+COPY ./overlay/conf ${PROJ_HOME}/conf
+COPY ./overlay/bin ${PROJ_HOME}/bin
+
+#RUN cat /tmp/hosts /etc/hosts | sort -u > /etc/hosts
+
+#ENTRYPOINT ["sh", "/opt/ecf/web_component/fms-bff-latest/bin/service_ctl.sh", "start"]
