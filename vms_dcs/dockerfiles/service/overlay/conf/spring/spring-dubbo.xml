@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd"
+	default-lazy-init="false">
+
+	<!-- 要暴露的服务接口 -->
+	<dubbo:service interface="com.ericsson.fms.component.IRedisService"
+		ref="redisService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.component.IEmailTemplateService"
+		ref="coreEmailTemplateService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.component.IOEMUtilService"
+		ref="coreOEMUtilService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.component.ISysParams"
+		ref="coreSysParamsService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.component.IJSONConstantService"
+		ref="coreJSONConstantService" retries="0" timeout="10000" protocol="dubbo" />
+
+
+	<dubbo:service interface="com.ericsson.fms.service.IDriverService"
+		ref="driverService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IEmailService"
+		ref="emailService" retries="0" timeout="10000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.IEmailTemplateService"
+		ref="emailTemplateService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IEnterpriseFleetOwnerService"
+		ref="enterpriseFleetOwnerService" retries="0" timeout="10000"
+		protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IEventService"
+		ref="eventService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFleetOperatorService"
+		ref="FleetOperatorService" retries="0" timeout="10000" protocol="dubbo" />
+
+
+	<dubbo:service interface="com.ericsson.fms.service.IFleetOwnerService"
+		ref="fleetOwnerService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFleetService"
+		ref="fleetService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFmsEnterpriseGroupService"
+		ref="fmsEnterpriseGroupService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFmsEnterpriseService"
+		ref="fmsEnterpriseService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFmsMenuService"
+		ref="fmsMenuService" retries="0" timeout="10000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.IFmsRoleService"
+		ref="fmsRoleService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IGeoFenceService"
+		ref="geoFenceService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IOemAdministratorService"
+		ref="oemAdministratorService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IOEMAdminService"
+		ref="oemAdminService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IOEMService"
+		ref="oemService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IPrivilegeService"
+		ref="privilegeService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFmsCommonService"
+		ref="fmsCommonService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IRolePortalService"
+		ref="rolePortalService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.ISummaryService"
+		ref="summaryService" retries="0" timeout="10000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.ISysParamsService"
+		ref="sysParamsService" retries="0" timeout="10000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.IUserService"
+		ref="userService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFmsFleetVehicleService"
+		ref="fleetVehicleService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFmsEnterpriseVehicleService"
+		ref="enterpriseVehicleService" retries="0" timeout="10000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IVehicleService"
+		ref="vehicleService" retries="0" timeout="30000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.m2m.provisioning.M2MDM"
+		ref="m2mdm" retries="0" timeout="50000" protocol="dubbo">
+		<dubbo:method name="deviceGateways" timeout="70000"
+			retries="0" />
+	</dubbo:service>
+
+	<dubbo:service interface="com.ericsson.fms.service.IModelService"
+		ref="modelService" retries="0" timeout="50000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IVehicleTagService"
+		ref="vehicleTagService" retries="0" timeout="50000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.IFileService"
+		ref="fileService" retries="0" timeout="30000" protocol="dubbo" />
+
+
+	<dubbo:service interface="com.ericsson.fms.service.IUserSettingService"
+		ref="userSettingService" retries="0" timeout="30000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.component.IEmailTemplateService"
+		ref="coreEmailTemplateService" retries="0" timeout="30000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.ITripService"
+		ref="tripService" retries="0" timeout="30000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IAuthorizationService"
+		ref="authorizationService" retries="0" timeout="30000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IRtaAuthorizationService"
+		ref="rtaAuthoriztionService" retries="0" timeout="30000" protocol="dubbo" />
+
+	<dubbo:service interface="com.ericsson.fms.service.IOemPrivilegeService"
+		ref="oemPrivilegeService" retries="0" timeout="30000" protocol="dubbo" />
+
+
+	<dubbo:service interface="com.ericsson.fms.service.IVehicleCacheServiceV2" ref="vehicleCacheServiceV2" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IFmsMapCenterService" ref="mapCenterService" retries="0" timeout="200000" protocol="dubbo"/>
+
+	<dubbo:service interface="com.ericsson.fms.service.IRemoteService" ref="remoteService" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IGisMapService" ref="gisMapService" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IGisRoadService" ref="gisRoadService" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IDriverCacheService" ref="driverCacheService" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IKeycloakService" ref="keycloakService" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IOauth2Service" ref="oauth2Service" retries="0" timeout="200000" protocol="dubbo"/>
+	<dubbo:service interface="com.ericsson.fms.service.IDispatcherService" ref="dispatcherService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IPermissionService" ref="permissionService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.component.ICountryService" ref="countryService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IUserRolePermissionService" ref="userRolePermissionService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IOrganizationService" ref="organizationService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IOrgInfoService" ref="orgInfoService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFinancialCostService" ref="financialCostService" retries="0" timeout="200000" protocol="dubbo" />
+	<dubbo:service interface="com.ericsson.fms.service.IFuelService" ref="fuelService" retries="0" timeout="200000" protocol="dubbo" />
+	
+</beans>

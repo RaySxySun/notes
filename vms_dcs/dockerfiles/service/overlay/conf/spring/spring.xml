@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.2.xsd
+http://www.springframework.org/schema/task
+http://www.springframework.org/schema/task/spring-task-4.2.xsd
+">
+
+	<!-- 注解扫描包 整包扫描 -->
+	<context:component-scan
+		base-package="com.ericsson.fms" />
+	<!-- Spring注解方式配置调度任务 -->
+	<task:executor id="executor" pool-size="5" />
+	<task:scheduler id="scheduler" pool-size="5" />
+	<task:annotation-driven executor="executor"
+		scheduler="scheduler" />
+
+	<!-- 引入属性文件 -->
+	<beans>
+		<context:property-placeholder
+			location="file:./conf/application.properties" ignore-unresolvable="true" />
+		<bean id="propertyConfigurer"
+			class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+			<property name="locations">
+				<list>
+					<value>file:./conf/application.properties</value>
+					<!-- <value>classpath:/local.properties</value> -->
+				</list>
+			</property>
+			<property name="fileEncoding" value="UTF-8" />
+		</bean>
+	</beans>
+
+	<beans>
+		<bean id="validator"
+			class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+			<property name="providerClass"
+				value="org.hibernate.validator.HibernateValidator" />
+			<!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+			<!-- <property name="validationMessageSource" ref="messageSource"/> -->
+		</bean>
+	</beans>
+	<beans>
+		<bean id="syncLoggingAspect"
+			class="com.ericsson.fms.service.core.aspectj.EventLogAspect"
+			factory-method="aspectOf">
+			<property name="aspect" ref="aspect" />
+		</bean>
+
+		<bean id="pageAspect"
+			class="com.ericsson.fms.service.core.aspectj.PageAspect"
+			factory-method="aspectOf">
+
+			<property name="redisService" ref="redisService" />
+		</bean>
+		<bean id="springContextUtil"
+			class="com.ericsson.fms.core.util.SpringContextUtil" />
+	</beans>
+	<beans>
+		<import resource="classpath*:keycloak-sso.xml" />
+	</beans>
+</beans>

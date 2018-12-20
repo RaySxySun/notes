@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd"
+	default-lazy-init="false">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${bff_dubbo_application_name}" />
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo_register_address}" />
+
+	<!-- 要调用的接口 -->
+    <dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IAuthorizationService" id="authorizationService" timeout="100000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IRtaAuthorizationService" id="rtaAuthorizationService" timeout="100000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.notification.api.email.v1.EmailSenderProvider" id="emailSenderProvider" timeout="30000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsEventService" id="fmsEventService" timeout="10000000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsNotificationEmailService" id="notificationEmailService" timeout="10000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsNotificationSMSService" id="notificationSMSService" timeout="10000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsNotificationPortalService" id="fmsNotificationPortalService" timeout="10000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IEventAccidentService" id="eventAccidentService" timeout="10000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.component.IRedisService" id="redisService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.component.IEmailTemplateService" id="coreEmailTemplateService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.component.IOEMUtilService" id="coreOEMUtilService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.component.ISysParams" id="coreSysParamsService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.component.IJSONConstantService" id="coreJSONConstantService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IDriverService" id="driverService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IEmailService" id="emailService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IEmailTemplateService" id="emailTemplateService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IEnterpriseFleetOwnerService" id="enterpriseFleetOwnerService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IEventService" id="eventService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.ITripService" id="tripService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFavouritesService" id="favouritesService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFleetOperatorService" id="FleetOperatorService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFleetOwnerService" id="fleetOwnerService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFleetService" id="fleetService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsEnterpriseGroupService" id="fmsEnterpriseGroupService" timeout="10000000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsEnterpriseService" id="fmsEnterpriseService" timeout="10000000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsMenuService" id="fmsMenuService" timeout="10000000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsRoleService" id="fmsRoleService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IGeoFenceService" id="geoFenceService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IOemAdministratorService" id="oemAdministratorService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IOEMAdminService" id="oemAdminService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IOEMService" id="oemService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IPrivilegeService" id="privilegeService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IRolePortalService" id="rolePortalService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.ISummaryService" id="summaryService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.ISysParamsService" id="sysParamsService" timeout="10000"/>
+
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IUserService" id="userService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IVehicleService" id="vehicleService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsCommonService" id="fmsCommonService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsEnterpriseVehicleService" id="enterpriseVehicleService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsFleetVehicleService" id="fleetVehicleService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.m2m.provisioning.M2MDM" id="m2mdm" timeout="60000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IModelService" id="modelService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IVehicleTagService" id="vehicleTagService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IUserSettingService" id="userSettingService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IOemPrivilegeService" id="oemPrivilegeService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IRemoteService" id="remoteService"  timeout="30000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsMapCenterService" id="mapCenterService"  timeout="30000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IReportDriverService" id="reportDriverService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IReportFuelService" id="reportFuelService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IReportScheduleService" id="reportScheduleService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IReportTemplateService" id="reportTemplateService" timeout="10000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFctAlarmsService" id="fctAlarmsService" timeout="30000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IAlarmSettingService" id="alarmSettingService" timeout="30000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IRmsUserService" id="rmsUserService" timeout="30000" />
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsAlarmsConditionsService" id="fmsAlarmsConditionsService" timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsAlarmsItemService" id="fmsAlarmsItemService"  timeout="30000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IVehicleTrafficService" id="vehicleTrafficService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFileService" id="fileService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IGisMapService" id="gisMapService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IGisRoadService" id="gisRoadService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IOauth2Service" id="oauth2Service" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IFmsAlarmStatusLogService" id="fmsAlarmStatusLogService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IPermissionService" id="permissionService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.component.ICountryService" id="countryService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IUserRolePermissionService" id="userRolePermissionService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}" interface="com.ericsson.fms.service.IOrganizationService" id="organizationService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}"  interface="com.ericsson.fms.service.IVehicleCacheServiceV2" id="vehicleCacheServiceV2" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}"  interface="com.ericsson.fms.service.IFinancialCostService" id="financialCostService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}"  interface="com.ericsson.fms.service.IFuelService" id="fuelService" timeout="200000"/>
+	<dubbo:reference check="${dubbo.reference.applicationCheck}"  interface="com.ericsson.fms.service.IReportDashboardService" id="IReportDashboardService" timeout="200000"/>
+</beans>

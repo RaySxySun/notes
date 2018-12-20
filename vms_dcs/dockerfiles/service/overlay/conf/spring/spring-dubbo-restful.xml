@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd"
+	default-lazy-init="false">
+
+	<!-- 要暴露的服务接口 -->
+	<dubbo:protocol name="rest" accepts="500" server="tomcat"
+		port="${server.tomcat.port}"
+		extension="com.alibaba.dubbo.rpc.protocol.rest.support.LoggingFilter,com.ericsson.fms.v1.extension.FmsValidationExceptionMapper, com.ericsson.fms.v1.extension.FmsRestErrorExceptionMapper" />
+	<!-- <dubbo:protocol-rest port="8080"> <dubbo:extension>someInterceptor</dubbo:extension>
+		<dubbo:extension>someFilter</dubbo:extension> <dubbo:extension>someDynamicFeature</dubbo:extension>
+		<dubbo:extension>someEntityProvider</dubbo:extension> </dubbo:protocol-rest> -->
+
+	<dubbo:service interface="com.ericsson.fms.v1.IEnterprisesRestful"
+		ref="enterprisesRestful" protocol="rest" />
+
+	<dubbo:service interface="com.ericsson.fms.v1.IFleetOwnerRestful" ref="fleetOwnerRestful" protocol="rest" />
+	<dubbo:service interface="com.ericsson.fms.v1.IFleetOperatorRestful" ref="fleetOperatorRestful" protocol="rest" />
+	<dubbo:service interface="com.ericsson.fms.v1.IOemRestful" ref="oemRestful" protocol="rest" />
+
+	<dubbo:service interface="com.ericsson.fms.v1.organization.IVehicleOrgRestful" ref="vehicleOrgRestful" protocol="rest" />
+	<dubbo:service interface="com.ericsson.fms.v1.IDriversRestful" ref="driversRestful" protocol="rest" />
+	<dubbo:service interface="com.ericsson.fms.v1.IFleetRestful" ref="fleetRestful" protocol="rest" validation="true" />
+	<dubbo:service interface="com.ericsson.fms.v2.organization.IEnterpriseV2Restful" ref="enterpriseV2Restful" protocol="rest" />
+	<dubbo:service interface="com.ericsson.fms.v1.IUserRestful" ref="userRestful" protocol="rest" />
+	<dubbo:service interface="com.ericsson.fms.v1.request.asset.cost.fuel.IFuelRestful" ref="fuelRestful" protocol="rest"  validation="true"  />
+	<dubbo:service interface="com.ericsson.fms.v1.IScheduleControllRestful" ref="scheduleControllRestful" protocol="rest" />
+</beans>

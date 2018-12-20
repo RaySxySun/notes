@@ -54,6 +54,8 @@ gz
 .zip 
 解压：unzip FileName.zip 
 压缩：zip FileName.zip DirName 
+解压覆盖: unzip -o ${TARGET} -d ./${APP_NAME}
+
 --------------------------------------------- 
 .rar 
 解压：rar a FileName.rar 

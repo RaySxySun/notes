@@ -1,0 +1,6 @@
+ARG IMAGE_FULL_PATH
+FROM ${IMAGE_FULL_PATH}
+MAINTAINER ray ohraymaster@163.com
+COPY ./overlay/conf /conf
+RUN cp -rf /conf/* /fms-bff/WEB-INF/classes/.
+RUN sed -i 's#<value>.*application.properties</value>#<value>classpath:/application.properties</value>#g'  /fms-bff/WEB-INF/classes/spring/*.xml

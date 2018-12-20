@@ -1,0 +1,12 @@
+# COPY FROM ecf-portal-1
+# BEGIN ANSIBLE MANAGED BLOCK
+192.168.2.197 ecf-api.internal.ecf.cloud
+# # END ANSIBLE MANAGED BLOCK
+# # BEGIN ECF API BLOCK
+192.168.2.197 ecf-api.internal.ecf.cloud
+# # END ECF API BLOCK
+# # BEGIN LDAP ENDPOINT
+192.168.2.55 ldap.internal.dev.ecf.cloud
+# # END LDAP ENDPOINT
+# END COPY FROM ecf-portal-1
+

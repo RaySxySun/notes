@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:core="http://activemq.apache.org/schema/core"
+	xsi:schemaLocation="http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://activemq.apache.org/schema/core http://activemq.org/config/1.0/1.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd">
+
+	<!-- 注解扫描包 整包扫描 -->
+	<context:component-scan base-package="com.ericsson">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+		<!--websocket-->
+		<!--<context:exclude-filter type="regex" expression="com.ericsson.fms.bff.websocket.*"/>-->
+	</context:component-scan>
+
+	<!-- 引入属性文件 -->
+	<beans>
+
+		<bean id="property" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+			<property name="locations">
+				<list>
+					<value>classpath:/application.properties</value>
+					<value>classpath:/local.properties</value>
+				</list>
+			</property>
+			<property name="fileEncoding" value="UTF-8" />
+			<property name="ignoreResourceNotFound" value="true" />
+
+		</bean>
+
+		<bean id="propertyConfiger" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="properties" ref="property"/>
+			<property name="ignoreResourceNotFound" value="true" />
+		</bean>
+
+	</beans>
+
+
+
+	<beans>
+<!--		<import resource="dubbo/dubbo-aa.xml" />
+		<import resource="dubbo/dubbo-common-service.xml" />
+		<import resource="dubbo/dubbo-event-notification.xml" />
+		<import resource="dubbo/dubbo-org-mgmt.xml" />
+		<import resource="dubbo/dubbo-provisioning.xml" />-->
+<!--		<import resource="dubbo/dubbo-rule-mgmt.xml" />-->
+<!--		<import resource="dubbo/dubbo-traffic-mgmt.xml" />-->
+		<import resource="spring-dubbo.xml" />
+	</beans>
+</beans>
