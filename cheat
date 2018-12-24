@@ -32,6 +32,9 @@ if sys.argv[1] == 'less':
 if sys.argv[1] == 'pull':
     os.system("cd %s && git pull"%(script_real_path))
     exit(0)
+if sys.argv[1] == 'commit' and sys.argv[2] != "":
+    os.system("cd %s && git add --all && git commit -m '%s' --no-edit && git push origin HEAD"%(script_real_path, sys.argv[2]))
+    exit(0)
 if sys.argv[1] == 'push':
     os.system("cd %s && git add --all && git commit --amend --no-edit && git push -f origin HEAD"%(script_real_path))
     exit(0)
