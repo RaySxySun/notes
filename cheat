@@ -39,5 +39,5 @@ if sys.argv[1] == 'push':
     os.system("cd %s && git add --all && git commit --amend --no-edit && git push -f origin HEAD"%(script_real_path))
     exit(0)
 
-(status, output) = commands.getstatusoutput("cat %s/doc/%s "%(script_real_path,  sys.argv[1]))
+(status, output) = commands.getstatusoutput("less %s/doc/%s "%(script_real_path,  sys.argv[1]))
 print output 
