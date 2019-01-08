@@ -2131,3 +2131,13 @@ refer to: [link](http://pmtips.net/blog-new/delegate-escalate-important-skills)
 
 - built from the ground up
   - Is there another storage technology that you could use that was built from the ground up to scale?
+
+---
+
+- a hair’s breadth: 一个非常小的距离
+  - Last year, China's most prosperous province missed its 7 percent growth target by a hair's breadth, 
+    expanding by 6.8 percent, as it struggled to reduce it reliance on low-end manufacturing and exports.
+
+
+
+
